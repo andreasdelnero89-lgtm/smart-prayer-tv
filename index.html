@@ -3,851 +3,1215 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#071629">
 <title>SMART PRAYER TV</title>
+
 <style>
 :root {
-  --navy:#071629;--navy2:#102b49;--gold:#e8bd69;
-  --gold2:#ffe4a5;--white:#f7f5ee;--muted:#aebdca;
-  --green:#58d6a0;--red:#ff8585;
+  --navy:#071629;
+  --navy2:#102b49;
+  --gold:#e8bd69;
+  --gold2:#ffe4a5;
+  --white:#f7f5ee;
+  --muted:#aebdca;
+  --green:#58d6a0;
+  --red:#ff8585;
 }
 *{box-sizing:border-box}
+html,body{min-height:100%;margin:0}
+html{background:var(--navy)}
 body{
-  margin:0;min-height:100vh;color:var(--white);
+  color:var(--white);
   font-family:Arial,Helvetica,sans-serif;
-  background:radial-gradient(circle at 50% 0%,#1d4263,transparent 45%),
-  linear-gradient(135deg,#061323,#102b49 55%,#061323);
+  background:
+    radial-gradient(circle at 50% 0%,#1d4263,transparent 45%),
+    linear-gradient(135deg,#061323,#102b49 55%,#061323);
 }
 button,select,input{font:inherit}
 button{
-  border:1px solid rgba(232,189,105,.55);border-radius:12px;
-  padding:12px 18px;background:linear-gradient(135deg,#f0cf8b,#c8943e);
-  color:#17243a;font-weight:bold;cursor:pointer;
+  border:1px solid #e8bd6980;
+  border-radius:12px;
+  padding:13px 18px;
+  background:linear-gradient(135deg,#f0cf8b,#c8943e);
+  color:#17243a;
+  font-weight:bold;
+  cursor:pointer;
+  touch-action:manipulation;
 }
-button:hover{filter:brightness(1.1)}
+button:active{transform:scale(.98)}
 button:disabled{opacity:.5;cursor:not-allowed}
 .secondary{background:#173553;color:white;border:1px solid #55718b}
 .danger{background:#682d39;color:white;border:1px solid #b65b69}
+
 .container{width:min(1400px,96%);margin:auto;padding:22px 0 35px}
-header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid rgba(232,189,105,.35);padding-bottom:18px}
+header{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:15px;flex-wrap:wrap;
+  border-bottom:1px solid #e8bd6959;padding-bottom:18px
+}
 .brand{display:flex;align-items:center;gap:15px}
-.logo{width:65px;height:65px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--gold);color:var(--gold);font-size:34px}
-.brand h1{margin:0;color:var(--gold2);font-size:clamp(22px,3vw,36px);letter-spacing:2px}
+.logo{
+  width:65px;height:65px;display:grid;place-items:center;
+  border-radius:50%;border:2px solid var(--gold);
+  color:var(--gold);font-size:34px
+}
+.brand h1{
+  margin:0;color:var(--gold2);
+  font-size:clamp(22px,3vw,36px);letter-spacing:2px
+}
 .brand p{margin:5px 0 0;color:var(--muted)}
 .clockbox{text-align:right}
-.clock{font-size:clamp(30px,5vw,52px);font-weight:bold;color:var(--gold2);font-variant-numeric:tabular-nums}
+.clock{
+  font-size:clamp(30px,5vw,52px);
+  font-weight:bold;color:var(--gold2);
+  font-variant-numeric:tabular-nums
+}
 .date{color:var(--muted);line-height:1.7}
-.hero{margin-top:22px;padding:30px 20px;text-align:center;border:1px solid rgba(232,189,105,.45);border-radius:24px;background:linear-gradient(135deg,rgba(24,58,88,.95),rgba(8,27,47,.95));box-shadow:0 15px 45px #0004}
+
+.hero{
+  margin-top:22px;padding:30px 20px;text-align:center;
+  border:1px solid #e8bd6973;border-radius:24px;
+  background:linear-gradient(135deg,#183a58f2,#081b2ff2);
+  box-shadow:0 15px 45px #0004
+}
 .eyebrow{color:var(--gold);letter-spacing:3px;font-size:13px}
 .hero h2{font-size:clamp(26px,4vw,45px);margin:12px 0;color:var(--gold2)}
-.countdown{font-size:clamp(38px,7vw,75px);font-weight:bold;letter-spacing:3px;color:white;font-variant-numeric:tabular-nums}
+.countdown{
+  font-size:clamp(38px,7vw,75px);font-weight:bold;
+  letter-spacing:3px;color:white;font-variant-numeric:tabular-nums
+}
 .hero small{color:var(--muted)}
-.prayer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:20px}
-.prayer-card{text-align:center;padding:20px 8px;border-radius:17px;background:#0f2b49e0;border:1px solid #ffffff1f}
+
+.prayer-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:12px;margin-top:20px
+}
+.prayer-card{
+  text-align:center;padding:20px 8px;border-radius:17px;
+  background:#0f2b49e0;border:1px solid #ffffff1f
+}
 .prayer-card.active{border:2px solid var(--gold);background:#7152254d}
 .prayer-card h3{color:var(--gold2);margin:0 0 12px;font-size:clamp(14px,2vw,20px)}
 .prayer-card .time{font-size:clamp(22px,3vw,32px);font-weight:bold}
+
 .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-.info-card{padding:17px;background:#0f2b49cc;border:1px solid #ffffff1a;border-radius:15px;text-align:center}
+.info-card{
+  padding:17px;background:#0f2b49cc;
+  border:1px solid #ffffff1a;border-radius:15px;text-align:center
+}
 .info-card span{display:block;color:var(--muted);font-size:13px}
 .info-card strong{display:block;margin-top:7px;font-size:24px;color:var(--gold2)}
-.panel{margin-top:20px;padding:20px;border:1px solid #e8bd6959;border-radius:18px;background:#081b2fe0}
+
+.panel{
+  margin-top:20px;padding:20px;border:1px solid #e8bd6959;
+  border-radius:18px;background:#081b2fe0
+}
 .panel h3{margin:0 0 14px;color:var(--gold2)}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
 .status{color:var(--muted);font-size:14px;line-height:1.6;margin-top:12px}
-.status.ok{color:var(--green)}.status.error{color:var(--red)}
+.status.ok{color:var(--green)}
+.status.error{color:var(--red)}
 .simulation{border:1px solid #e8bd6999;background:linear-gradient(135deg,#2d3d4dcc,#142a3ef2)}
 .big-count{font-size:clamp(28px,5vw,48px);font-weight:bold;color:var(--gold2);margin:10px 0}
-select,input[type=file]{color:white;background:#102b49;border:1px solid #58718a;border-radius:9px;padding:10px;max-width:100%}
+
+select,input[type=range]{
+  color:white;background:#102b49;border:1px solid #58718a;
+  border-radius:9px;padding:10px;max-width:100%
+}
 select option{background:#102b49}
 .setting-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0}
 .setting-row label{min-width:130px;color:var(--muted)}
 footer{text-align:center;color:#91a6b8;font-size:12px;margin-top:25px;line-height:1.8}
+
 .modal{display:none;position:fixed;inset:0;z-index:10;background:#000c;padding:20px;overflow:auto}
 .modal-content{max-width:550px;margin:5vh auto;padding:24px;background:#102b49;border:1px solid var(--gold);border-radius:18px}
 .modal-content h2{color:var(--gold2)}
+
 /* LAYAR IQAMAH */
 #iqamahScreen{
   display:none;position:fixed;inset:0;z-index:50;
   background:radial-gradient(circle at center,#1c4262,#061323 75%);
-  align-items:center;justify-content:center;text-align:center;padding:25px;
+  align-items:center;justify-content:center;text-align:center;padding:25px
 }
-.iqamah-inner{max-width:1000px;width:100%}
+.iqamah-inner{max-width:1100px;width:100%}
+.iqamah-decoration{font-size:clamp(35px,6vw,65px);color:var(--gold);margin-bottom:20px}
 .iqamah-label{color:var(--gold);font-size:clamp(18px,3vw,30px);letter-spacing:5px}
 .iqamah-prayer{color:var(--gold2);font-size:clamp(28px,6vw,65px);margin:20px 0}
-.iqamah-number{font-size:clamp(65px,15vw,150px);font-weight:bold;color:white;font-variant-numeric:tabular-nums}
+.iqamah-number{
+  font-size:clamp(65px,15vw,150px);font-weight:bold;
+  color:white;font-variant-numeric:tabular-nums
+}
 .iqamah-note{color:var(--muted);font-size:clamp(15px,2vw,22px);margin-top:20px}
-.iqamah-decoration{font-size:clamp(35px,6vw,65px);color:var(--gold);margin-bottom:20px}
+
 @media(max-width:700px){
- .prayer-grid{grid-template-columns:repeat(2,1fr)}
- .prayer-card:last-child{grid-column:span 2}
- .info-grid{grid-template-columns:1fr}
- .clockbox{text-align:left}
- header{align-items:flex-start}
+  .prayer-grid{grid-template-columns:repeat(2,1fr)}
+  .prayer-card:last-child{grid-column:span 2}
+  .info-grid{grid-template-columns:1fr}
+  .clockbox{text-align:left}
+  header{align-items:flex-start}
+  .actions button{flex:1 1 100%}
 }
 </style>
 </head>
-<body>
 
+<body>
 <div class="container">
+
 <header>
- <div class="brand">
-  <div class="logo">☪</div>
-  <div>
-   <h1>SMART PRAYER TV</h1>
-   <p>Jadwal Salat • Pengingat Azan • Bukittinggi</p>
+  <div class="brand">
+    <div class="logo">☪</div>
+    <div>
+      <h1>SMART PRAYER TV</h1>
+      <p>Jadwal Salat • Pengingat Azan • Bukittinggi</p>
+    </div>
   </div>
- </div>
- <div class="clockbox">
-  <div class="clock" id="clock">00:00:00</div>
-  <div class="date" id="gregorian">Memuat tanggal...</div>
-  <div class="date" id="hijri">Memuat kalender Hijriah...</div>
- </div>
+
+  <div class="clockbox">
+    <div class="clock" id="clock">00:00:00</div>
+    <div class="date" id="gregorian">Memuat tanggal...</div>
+    <div class="date" id="hijri">Memuat kalender Hijriah...</div>
+  </div>
 </header>
 
 <section class="hero">
- <div class="eyebrow">MENUJU WAKTU SALAT BERIKUTNYA</div>
- <h2 id="nextPrayer">Memuat jadwal salat...</h2>
- <div class="countdown" id="countdown">--:--:--</div>
- <small id="nextPrayerTime">Mohon tunggu</small>
+  <div class="eyebrow">MENUJU WAKTU SALAT BERIKUTNYA</div>
+  <h2 id="nextPrayer">Memuat jadwal salat...</h2>
+  <div class="countdown" id="countdown">--:--:--</div>
+  <small id="nextPrayerTime">Mohon tunggu</small>
 </section>
 
 <section class="prayer-grid">
- <div class="prayer-card"><h3>SUBUH</h3><div class="time" id="time-subuh">--:--</div></div>
- <div class="prayer-card"><h3>ZUHUR</h3><div class="time" id="time-dzuhur">--:--</div></div>
- <div class="prayer-card"><h3>ASAR</h3><div class="time" id="time-ashar">--:--</div></div>
- <div class="prayer-card"><h3>MAGRIB</h3><div class="time" id="time-maghrib">--:--</div></div>
- <div class="prayer-card"><h3>ISYA</h3><div class="time" id="time-isya">--:--</div></div>
+  <div class="prayer-card"><h3>SUBUH</h3><div class="time" id="time-subuh">--:--</div></div>
+  <div class="prayer-card"><h3>ZUHUR</h3><div class="time" id="time-dzuhur">--:--</div></div>
+  <div class="prayer-card"><h3>ASAR</h3><div class="time" id="time-ashar">--:--</div></div>
+  <div class="prayer-card"><h3>MAGRIB</h3><div class="time" id="time-maghrib">--:--</div></div>
+  <div class="prayer-card"><h3>ISYA</h3><div class="time" id="time-isya">--:--</div></div>
 </section>
 
 <section class="info-grid">
- <div class="info-card"><span>IMSAK</span><strong id="imsak">--:--</strong></div>
- <div class="info-card"><span>MATAHARI TERBIT</span><strong id="sunrise">--:--</strong></div>
- <div class="info-card"><span>LOKASI</span><strong style="font-size:20px">Bukittinggi</strong></div>
+  <div class="info-card"><span>IMSAK</span><strong id="imsak">--:--</strong></div>
+  <div class="info-card"><span>MATAHARI TERBIT</span><strong id="sunrise">--:--</strong></div>
+  <div class="info-card"><span>LOKASI</span><strong style="font-size:20px">Bukittinggi</strong></div>
 </section>
 
 <section class="panel">
- <h3>🔊 KONTROL AUDIO</h3>
- <div class="status" id="audioStatus">Audio belum diaktifkan. Tekan tombol Aktifkan Audio terlebih dahulu.</div>
- <div class="actions">
-  <button onclick="enableAudio()">Aktifkan Audio</button>
-  <button class="secondary" onclick="testAutomaticAdhan()">Tes Azan Otomatis 10 Detik</button>
-  <button class="secondary" onclick="openSettings()">Pengaturan Audio</button>
-  <button class="secondary" onclick="toggleFullscreen()">Layar Penuh</button>
-  <button class="secondary" onclick="loadSchedule()">Perbarui Jadwal</button>
- </div>
+  <h3>🔊 KONTROL AUDIO DAN LAYAR</h3>
+  <div class="status" id="audioStatus">
+    Audio belum diaktifkan. Tekan Aktifkan Audio terlebih dahulu.
+  </div>
+  <div class="actions">
+    <button onclick="enableAudio()">Aktifkan Audio</button>
+    <button class="secondary" onclick="stopAudio()">Hentikan Audio</button>
+    <button class="secondary" onclick="toggleFullscreen()">Layar Penuh</button>
+    <button class="secondary" onclick="openSettings()">Pengaturan</button>
+    <button class="secondary" onclick="loadSchedule()">Perbarui Jadwal</button>
+  </div>
+  <div class="status" id="screenStatus">Status layar: mode normal.</div>
+  <div class="status">
+    Audio azan permanen: <span id="audioFileStatus">Memeriksa file...</span>
+  </div>
 </section>
 
 <section class="panel simulation">
- <h3>🌙 SIMULASI ALARM SUBUH</h3>
- <p style="color:var(--muted);line-height:1.6">
-  Uji alur lengkap azan Subuh sampai hitung mundur iqamah tanpa menunggu waktu salat sebenarnya.
- </p>
- <div class="big-count" id="simulationCountdown">SIAP</div>
- <div class="actions">
-  <button onclick="simulateSubuh()">Simulasi Alarm Subuh 10 Detik</button>
-  <button class="danger" onclick="cancelSimulation()">Batalkan Simulasi</button>
- </div>
- <div class="status" id="simulationStatus">Simulasi belum dijalankan.</div>
+  <h3>🌙 SIMULASI ALARM SUBUH</h3>
+  <p style="color:var(--muted);line-height:1.6">
+    Uji alur lengkap azan Subuh sampai hitung mundur iqamah tanpa menunggu waktu salat sebenarnya.
+  </p>
+  <div class="big-count" id="simulationCountdown">SIAP</div>
+  <div class="actions">
+    <button onclick="simulateSubuh()">Simulasi Alarm Subuh 10 Detik</button>
+    <button class="danger" onclick="cancelSimulation()">Batalkan Simulasi</button>
+  </div>
+  <div class="status" id="simulationStatus">Simulasi belum dijalankan.</div>
 </section>
 
 <section class="panel">
- <h3>📋 STATUS JADWAL DAN IQAMAH</h3>
- <div class="status" id="scheduleStatus">Menghubungkan ke layanan jadwal salat...</div>
- <div class="status" id="sequenceStatus">Belum ada proses azan atau iqamah.</div>
+  <h3>📋 STATUS JADWAL DAN IQAMAH</h3>
+  <div class="status" id="scheduleStatus">Menghubungkan ke layanan jadwal salat...</div>
+  <div class="status" id="sequenceStatus">Belum ada proses azan atau iqamah.</div>
 </section>
 
 <footer>
- SMART PRAYER TV • Bukittinggi, Sumatera Barat<br>
- Semoga menjadi pengingat untuk senantiasa menjaga salat tepat waktu.
+  SMART PRAYER TV • Bukittinggi, Sumatera Barat<br>
+  Semoga menjadi pengingat untuk senantiasa menjaga salat tepat waktu.
 </footer>
 </div>
 
 <!-- LAYAR IQAMAH -->
 <div id="iqamahScreen">
- <div class="iqamah-inner">
-  <div class="iqamah-decoration">☪</div>
-  <div class="iqamah-label">SMART PRAYER TV</div>
-  <div class="iqamah-prayer" id="iqamahPrayerName">IQAMAH SUBUH</div>
-  <div class="iqamah-number" id="iqamahCountdown">10:00</div>
-  <div class="iqamah-note" id="iqamahNote">Menuju waktu iqamah</div>
- </div>
+  <div class="iqamah-inner">
+    <div class="iqamah-decoration">☪</div>
+    <div class="iqamah-label">SMART PRAYER TV</div>
+    <div class="iqamah-prayer" id="iqamahPrayerName">IQAMAH SUBUH</div>
+    <div class="iqamah-number" id="iqamahCountdown">10:00</div>
+    <div class="iqamah-note" id="iqamahNote">Persiapan iqamah</div>
+  </div>
 </div>
 
 <!-- PENGATURAN -->
 <div class="modal" id="settingsModal">
- <div class="modal-content">
-  <h2>Pengaturan SMART PRAYER TV</h2>
-  <div class="setting-row">
-   <label>Upload MP3 Azan</label>
-   <input type="file" id="adhanFile" accept="audio/*">
+  <div class="modal-content">
+    <h2>Pengaturan SMART PRAYER TV</h2>
+
+    <div class="setting-row">
+      <label>Volume Azan</label>
+      <input type="range" id="volumeControl" min="0" max="100" value="85">
+      <span id="volumeValue">85%</span>
+    </div>
+
+    <div class="setting-row">
+      <label>Jeda Iqamah</label>
+      <select id="iqamahDelay">
+        <option value="5">5 menit</option>
+        <option value="10" selected>10 menit</option>
+        <option value="15">15 menit</option>
+        <option value="20">20 menit</option>
+      </select>
+    </div>
+
+    <div class="setting-row">
+      <label>Koreksi Hijriah</label>
+      <select id="hijriAdjust">
+        <option value="-2">-2 hari</option>
+        <option value="-1">-1 hari</option>
+        <option value="0" selected>Normal</option>
+        <option value="1">+1 hari</option>
+        <option value="2">+2 hari</option>
+      </select>
+    </div>
+
+    <div class="status">
+      File MP3 azan diambil dari server aplikasi. Tidak perlu upload ulang di perangkat lain.
+    </div>
+
+    <div class="actions">
+      <button onclick="saveSettings()">Simpan Pengaturan</button>
+      <button class="secondary" onclick="closeSettings()">Tutup</button>
+    </div>
   </div>
-  <div class="status" id="uploadStatus">Unggah MP3 azan untuk digunakan sebagai suara alarm.</div>
-  <div class="setting-row">
-   <label>Volume</label>
-   <input type="range" id="volumeControl" min="0" max="100" value="85">
-   <span id="volumeValue">85%</span>
-  </div>
-  <div class="setting-row">
-   <label>Jeda Iqamah</label>
-   <select id="iqamahDelay">
-    <option value="5">5 menit</option>
-    <option value="10" selected>10 menit</option>
-    <option value="15">15 menit</option>
-    <option value="20">20 menit</option>
-   </select>
-  </div>
-  <div class="setting-row">
-   <label>Koreksi Hijriah</label>
-   <select id="hijriAdjust">
-    <option value="-2">-2 hari</option>
-    <option value="-1">-1 hari</option>
-    <option value="0" selected>Normal</option>
-    <option value="1">+1 hari</option>
-    <option value="2">+2 hari</option>
-   </select>
-  </div>
-  <div class="actions">
-   <button onclick="saveSettings()">Simpan Pengaturan</button>
-   <button class="secondary" onclick="closeSettings()">Tutup</button>
-  </div>
- </div>
 </div>
 
-<audio id="adhanAudio" preload="auto"></audio>
+<!-- AUDIO PERMANEN DARI SERVER -->
+<audio id="adhanAudio" preload="auto" playsinline>
+  <source src="/mecca_56_22.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 "use strict";
 
-const API="https://api.myquran.com/v3";
-const TIMEZONE="Asia/Jakarta";
-const CITY_KEY="bukittinggi";
+/* =====================================
+   KONFIGURASI APLIKASI
+===================================== */
 
-const prayerList=[
- {key:"subuh",name:"Subuh",apiKey:"subuh"},
- {key:"dzuhur",name:"Zuhur",apiKey:"dzuhur"},
- {key:"ashar",name:"Asar",apiKey:"ashar"},
- {key:"maghrib",name:"Magrib",apiKey:"maghrib"},
- {key:"isya",name:"Isya",apiKey:"isya"}
+const API = "https://api.myquran.com/v3";
+const TIMEZONE = "Asia/Jakarta";
+const CITY_KEY = "bukittinggi";
+
+/*
+  MP3 disimpan di folder public/root Vercel.
+  File: mecca_56_22.mp3
+*/
+const ADHAN_URL = "/mecca_56_22.mp3";
+
+const prayerList = [
+  {key:"subuh",name:"Subuh",apiKey:"subuh"},
+  {key:"dzuhur",name:"Zuhur",apiKey:"dzuhur"},
+  {key:"ashar",name:"Asar",apiKey:"ashar"},
+  {key:"maghrib",name:"Magrib",apiKey:"maghrib"},
+  {key:"isya",name:"Isya",apiKey:"isya"}
 ];
 
-let cityId=null;
-let schedule=null;
-let audioReady=false;
-let audioBlob=null;
-let audioObjectUrl=null;
-let lastAlarmKey="";
-let simulationTimer=null;
-let simulationInterval=null;
-let simulationRunning=false;
-let iqamahInterval=null;
-let iqamahTimeout=null;
-let sequenceId=0;
-let activeSequence=null;
-let lastDateString="";
+let cityId = null;
+let schedule = null;
+let audioReady = false;
+let lastAlarmKey = "";
 
-let settings={volume:85,iqamah:10,hijriAdjust:0};
-const audio=document.getElementById("adhanAudio");
+let simulationTimer = null;
+let simulationInterval = null;
+let simulationRunning = false;
 
-/* DATABASE AUDIO */
-let db;
+let iqamahInterval = null;
+let sequenceId = 0;
+let activeSequence = null;
+let wakeLock = null;
+let lastDateString = "";
 
-function openAudioDB(){
- return new Promise((resolve,reject)=>{
-  const request=indexedDB.open("SmartPrayerTVDB",1);
-  request.onupgradeneeded=e=>{
-   const database=e.target.result;
-   if(!database.objectStoreNames.contains("audio")){
-    database.createObjectStore("audio");
-   }
-  };
-  request.onsuccess=e=>{db=e.target.result;resolve(db)};
-  request.onerror=()=>reject(request.error);
- });
-}
+let settings = {
+  volume:85,
+  iqamah:10,
+  hijriAdjust:0
+};
 
-function saveAudioToDB(blob){
- return new Promise((resolve,reject)=>{
-  const tx=db.transaction("audio","readwrite");
-  tx.objectStore("audio").put(blob,"adhan");
-  tx.oncomplete=resolve;
-  tx.onerror=()=>reject(tx.error);
- });
-}
+const audio = document.getElementById("adhanAudio");
 
-function getAudioFromDB(){
- return new Promise((resolve,reject)=>{
-  const tx=db.transaction("audio","readonly");
-  const req=tx.objectStore("audio").get("adhan");
-  req.onsuccess=()=>resolve(req.result||null);
-  req.onerror=()=>reject(req.error);
- });
-}
+/* =====================================
+   NORMALISASI PENGATURAN
+===================================== */
 
-function setAudioSource(blob){
- if(audioObjectUrl)URL.revokeObjectURL(audioObjectUrl);
- audioBlob=blob;
- audioObjectUrl=URL.createObjectURL(blob);
- audio.src=audioObjectUrl;
- audio.load();
- document.getElementById("uploadStatus").textContent=
-  "MP3 azan berhasil dimuat dan siap digunakan.";
-}
-
-/* SETTINGS */
-function loadSettings(){
- try{
-  const saved=JSON.parse(localStorage.getItem("spt_settings")||"{}");
-  settings={...settings,...saved};
- }catch(e){}
- document.getElementById("volumeControl").value=settings.volume;
- document.getElementById("volumeValue").textContent=settings.volume+"%";
- document.getElementById("iqamahDelay").value=settings.iqamah;
- document.getElementById("hijriAdjust").value=settings.hijriAdjust;
- audio.volume=settings.volume/100;
-}
-
-function saveSettings(){
- settings.volume=Number(document.getElementById("volumeControl").value);
- settings.iqamah=Number(document.getElementById("iqamahDelay").value);
- settings.hijriAdjust=Number(document.getElementById("hijriAdjust").value);
- localStorage.setItem("spt_settings",JSON.stringify(settings));
- audio.volume=settings.volume/100;
- closeSettings();
- loadHijriDate();
- alert("Pengaturan berhasil disimpan.");
-}
-
-function openSettings(){
- document.getElementById("settingsModal").style.display="block";
-}
-function closeSettings(){
- document.getElementById("settingsModal").style.display="none";
-}
-
-document.getElementById("volumeControl").addEventListener("input",e=>{
- document.getElementById("volumeValue").textContent=e.target.value+"%";
- audio.volume=Number(e.target.value)/100;
-});
-
-/* UPLOAD MP3 */
-document.getElementById("adhanFile").addEventListener("change",async e=>{
- const file=e.target.files[0];
- if(!file)return;
- if(!file.type.startsWith("audio/")){
-  alert("File harus berupa audio.");
-  return;
- }
- try{
-  await saveAudioToDB(file);
-  setAudioSource(file);
-  document.getElementById("uploadStatus").textContent=
-   "Berhasil menyimpan "+file.name+" di perangkat ini.";
-  alert("MP3 azan berhasil disimpan.");
- }catch(error){
-  console.error(error);
-  alert("Gagal menyimpan MP3. Periksa kapasitas browser.");
- }
-});
-
-/* JAM */
-function updateClock(){
- const now=new Date();
- document.getElementById("clock").textContent=
-  now.toLocaleTimeString("id-ID",{
-   timeZone:TIMEZONE,hour:"2-digit",minute:"2-digit",
-   second:"2-digit",hour12:false
-  });
- document.getElementById("gregorian").textContent=
-  now.toLocaleDateString("id-ID",{
-   timeZone:TIMEZONE,weekday:"long",day:"numeric",
-   month:"long",year:"numeric"
-  });
-}
-
-function getLocalDateString(){
- const parts=new Intl.DateTimeFormat("en-CA",{
-  timeZone:TIMEZONE,year:"numeric",month:"2-digit",day:"2-digit"
- }).formatToParts(new Date());
- const values={};
- parts.forEach(p=>values[p.type]=p.value);
- return `${values.year}-${values.month}-${values.day}`;
-}
-
-/* JADWAL SALAT */
-async function loadSchedule(){
- const status=document.getElementById("scheduleStatus");
- status.textContent="Mengambil jadwal salat Bukittinggi...";
- try{
-  if(!cityId){
-   const cityResponse=await fetch(`${API}/sholat/kabkota/cari/${CITY_KEY}`);
-   if(!cityResponse.ok)throw new Error("Gagal mencari kota.");
-   const cityJson=await cityResponse.json();
-   const cities=Array.isArray(cityJson.data)?cityJson.data:
-    Array.isArray(cityJson)?cityJson:[];
-   const city=cities.find(item=>
-    String(item.lokasi||item.nama||"").toLowerCase().includes("bukittinggi")
-   )||cities[0];
-   if(!city)throw new Error("Kota Bukittinggi tidak ditemukan.");
-   cityId=city.id||city.value||city.kode;
-   if(!cityId)throw new Error("ID kota tidak ditemukan.");
+function normalizeIqamah(value) {
+  if (value && typeof value === "object") {
+    value = value.minutes ?? value.value ?? value.iqamah ?? value.delay ?? 10;
   }
 
-  const response=await fetch(
-   `${API}/sholat/jadwal/${cityId}/today?tz=${TIMEZONE}`
+  const number = Number(value);
+  return [5,10,15,20].includes(number) ? number : 10;
+}
+
+function loadSettings() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("spt_settings") || "{}");
+
+    settings = {
+      volume:Number(saved.volume ?? 85),
+      iqamah:normalizeIqamah(saved.iqamah),
+      hijriAdjust:Number(saved.hijriAdjust ?? 0)
+    };
+  } catch (error) {
+    settings = {volume:85,iqamah:10,hijriAdjust:0};
+  }
+
+  document.getElementById("volumeControl").value = settings.volume;
+  document.getElementById("volumeValue").textContent = settings.volume + "%";
+  document.getElementById("iqamahDelay").value = String(settings.iqamah);
+  document.getElementById("hijriAdjust").value = String(settings.hijriAdjust);
+
+  audio.volume = settings.volume / 100;
+}
+
+function saveSettings() {
+  settings.volume = Number(document.getElementById("volumeControl").value);
+  settings.iqamah = normalizeIqamah(
+    document.getElementById("iqamahDelay").value
   );
-  if(!response.ok)throw new Error("Gagal mengambil jadwal.");
+  settings.hijriAdjust = Number(document.getElementById("hijriAdjust").value);
 
-  const json=await response.json();
-  let data=json.data||json;
-  let jadwal=data.jadwal||data;
-  if(Array.isArray(jadwal))jadwal=jadwal[0];
+  localStorage.setItem("spt_settings",JSON.stringify(settings));
 
-  if(!jadwal||!jadwal.subuh){
-   const values=Object.values(jadwal||{});
-   jadwal=values.find(item=>item&&item.subuh)||jadwal;
-  }
-  if(!jadwal||!jadwal.subuh)throw new Error("Format jadwal tidak dikenali.");
+  audio.volume = settings.volume / 100;
 
-  schedule=jadwal;
-  renderPrayerTimes();
-  updatePrayerDisplay();
-  status.textContent="Jadwal salat Bukittinggi berhasil diperbarui.";
-  status.className="status ok";
+  closeSettings();
   loadHijriDate();
- }catch(error){
-  console.error(error);
-  status.textContent="Jadwal belum berhasil dimuat: "+error.message+
-   ". Periksa internet lalu tekan Perbarui Jadwal.";
-  status.className="status error";
- }
+
+  alert("Pengaturan berhasil disimpan.");
 }
 
-function renderPrayerTimes(){
- if(!schedule)return;
- prayerList.forEach(p=>{
-  document.getElementById("time-"+p.key).textContent=
-   schedule[p.apiKey]||"--:--";
- });
- document.getElementById("imsak").textContent=schedule.imsak||"--:--";
- document.getElementById("sunrise").textContent=
-  schedule.terbit||schedule.syuruq||"--:--";
+function openSettings() {
+  document.getElementById("settingsModal").style.display = "block";
 }
 
-/* HIJRIAH */
-async function loadHijriDate(){
- const date=getLocalDateString();
- const element=document.getElementById("hijri");
- try{
-  const response=await fetch(
-   `${API}/cal/hijr/${date}?tz=${TIMEZONE}&adj=${settings.hijriAdjust}`
-  );
-  if(!response.ok)throw new Error("Kalender tidak tersedia.");
-  const json=await response.json();
-  const data=json.data||json;
-  element.textContent=data.date||data.hijri||data.hijri_date||
-   "Tanggal Hijriah tidak tersedia";
- }catch(e){
-  element.textContent="Kalender Hijriah tidak tersedia";
- }
+function closeSettings() {
+  document.getElementById("settingsModal").style.display = "none";
 }
 
-/* HITUNG MUNDUR SALAT */
-function parsePrayerDate(time,dateString){
- if(!time||!/^\d{1,2}:\d{2}/.test(time))return null;
- const [hour,minute]=time.split(":").map(Number);
- const [year,month,day]=dateString.split("-").map(Number);
- return new Date(year,month-1,day,hour,minute,0,0);
-}
+document.getElementById("volumeControl").addEventListener("input",event => {
+  document.getElementById("volumeValue").textContent = event.target.value + "%";
+  audio.volume = Number(event.target.value) / 100;
+});
 
-function getPrayerDate(prayer,dateString){
- return parsePrayerDate(schedule[prayer.apiKey],dateString);
-}
+/* =====================================
+   CEK FILE AUDIO SERVER
+===================================== */
 
-function updatePrayerDisplay(){
- if(!schedule)return;
- const now=new Date();
- const dateString=getLocalDateString();
- const upcoming=[];
+async function checkAudioFile() {
+  const status = document.getElementById("audioFileStatus");
 
- prayerList.forEach(prayer=>{
-  let date=getPrayerDate(prayer,dateString);
-  if(date){
-   if(date.getTime()<now.getTime()-60000){
-    date=new Date(date.getTime()+86400000);
-   }
-   upcoming.push({prayer,date});
+  try {
+    const response = await fetch(ADHAN_URL, {
+      method:"HEAD",
+      cache:"no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("File tidak ditemukan di server.");
+    }
+
+    status.textContent = "Tersedia di server";
+    status.style.color = "var(--green)";
+  } catch (error) {
+    console.error(error);
+    status.textContent = "File belum tersedia. Periksa upload GitHub.";
+    status.style.color = "var(--red)";
   }
- });
- upcoming.sort((a,b)=>a.date-b.date);
- const next=upcoming[0];
- if(!next)return;
-
- document.getElementById("nextPrayer").textContent=next.prayer.name;
- document.getElementById("nextPrayerTime").textContent=
-  "Waktu salat: "+schedule[next.prayer.apiKey];
-
- const diff=Math.max(0,next.date-now);
- const h=Math.floor(diff/3600000);
- const m=Math.floor((diff%3600000)/60000);
- const s=Math.floor((diff%60000)/1000);
- document.getElementById("countdown").textContent=
-  [h,m,s].map(v=>String(v).padStart(2,"0")).join(":");
-
- document.querySelectorAll(".prayer-card").forEach(card=>
-  card.classList.remove("active")
- );
- const index=prayerList.findIndex(p=>p.key===next.prayer.key);
- if(index>=0)document.querySelectorAll(".prayer-card")[index].classList.add("active");
 }
 
-/* TTS CADANGAN */
-function speakReminder(prayerName){
- return new Promise(resolve=>{
-  if(!("speechSynthesis"in window)){resolve(false);return;}
-  try{
-   speechSynthesis.cancel();
-   const message=`Waktu Sholat ${prayerName} telah tiba. `+
-    "Segera tinggalkan pekerjaan dan menuju masjid atau musholla.";
-   const utterance=new SpeechSynthesisUtterance(message);
-   utterance.lang="id-ID";
-   utterance.rate=.9;
-   utterance.pitch=1;
-   utterance.volume=settings.volume/100;
-   utterance.onend=()=>resolve(true);
-   utterance.onerror=()=>resolve(false);
-   speechSynthesis.speak(utterance);
-   setTimeout(()=>resolve(true),30000);
-  }catch(e){console.error(e);resolve(false);}
- });
+/* =====================================
+   JAM DAN TANGGAL
+===================================== */
+
+function updateClock() {
+  const now = new Date();
+
+  document.getElementById("clock").textContent =
+    now.toLocaleTimeString("id-ID",{
+      timeZone:TIMEZONE,
+      hour:"2-digit",
+      minute:"2-digit",
+      second:"2-digit",
+      hour12:false
+    });
+
+  document.getElementById("gregorian").textContent =
+    now.toLocaleDateString("id-ID",{
+      timeZone:TIMEZONE,
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    });
 }
 
-/* IQAMAH */
-function clearIqamahTimers(){
- if(iqamahInterval){clearInterval(iqamahInterval);iqamahInterval=null;}
- if(iqamahTimeout){clearTimeout(iqamahTimeout);iqamahTimeout=null;}
+function getLocalDateString() {
+  const parts = new Intl.DateTimeFormat("en-CA",{
+    timeZone:TIMEZONE,
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).formatToParts(new Date());
+
+  const values = {};
+  parts.forEach(part => values[part.type] = part.value);
+
+  return `${values.year}-${values.month}-${values.day}`;
 }
 
-function beginIqamah(prayerName,id){
- if(id!==sequenceId)return;
- clearIqamahTimers();
+/* =====================================
+   JADWAL SALAT
+===================================== */
 
- const duration=settings.iqamah*60;
- const endTime=Date.now()+duration*1000;
- const screen=document.getElementById("iqamahScreen");
- const countdown=document.getElementById("iqamahCountdown");
- const name=document.getElementById("iqamahPrayerName");
- const note=document.getElementById("iqamahNote");
+async function loadSchedule() {
+  const status = document.getElementById("scheduleStatus");
+  status.textContent = "Mengambil jadwal salat Bukittinggi...";
 
- name.textContent="IQAMAH "+prayerName.toUpperCase();
- note.textContent=`Persiapan iqamah • ${settings.iqamah} menit`;
- screen.style.display="flex";
+  try {
+    if (!cityId) {
+      const cityResponse = await fetch(
+        `${API}/sholat/kabkota/cari/${CITY_KEY}`
+      );
 
- document.getElementById("sequenceStatus").textContent=
-  `Azan selesai. Hitung mundur iqamah ${prayerName} dimulai (${settings.iqamah} menit).`;
+      if (!cityResponse.ok) {
+        throw new Error("Gagal mencari kota.");
+      }
 
- function update(){
-  if(id!==sequenceId)return;
-  const remaining=Math.max(0,Math.ceil((endTime-Date.now())/1000));
-  const mm=Math.floor(remaining/60);
-  const ss=remaining%60;
-  countdown.textContent=
-   String(mm).padStart(2,"0")+":"+String(ss).padStart(2,"0");
+      const cityJson = await cityResponse.json();
 
-  if(remaining<=0){
-   clearIqamahTimers();
-   showIqamah(prayerName,id);
+      const cities = Array.isArray(cityJson.data)
+        ? cityJson.data
+        : Array.isArray(cityJson)
+          ? cityJson
+          : [];
+
+      const city = cities.find(item =>
+        String(item.lokasi || item.nama || "")
+          .toLowerCase()
+          .includes("bukittinggi")
+      ) || cities[0];
+
+      if (!city) {
+        throw new Error("Kota Bukittinggi tidak ditemukan.");
+      }
+
+      cityId = city.id || city.value || city.kode;
+
+      if (!cityId) {
+        throw new Error("ID kota tidak ditemukan.");
+      }
+    }
+
+    const response = await fetch(
+      `${API}/sholat/jadwal/${cityId}/today?tz=${TIMEZONE}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Gagal mengambil jadwal.");
+    }
+
+    const json = await response.json();
+
+    let data = json.data || json;
+    let jadwal = data.jadwal || data;
+
+    if (Array.isArray(jadwal)) {
+      jadwal = jadwal[0];
+    }
+
+    if (!jadwal || !jadwal.subuh) {
+      const values = Object.values(jadwal || {});
+      jadwal = values.find(item => item && item.subuh) || jadwal;
+    }
+
+    if (!jadwal || !jadwal.subuh) {
+      throw new Error("Format jadwal tidak dikenali.");
+    }
+
+    schedule = jadwal;
+
+    renderPrayerTimes();
+    updatePrayerDisplay();
+
+    status.textContent = "Jadwal salat Bukittinggi berhasil diperbarui.";
+    status.className = "status ok";
+
+    loadHijriDate();
+
+  } catch (error) {
+    console.error(error);
+
+    status.textContent =
+      "Jadwal belum berhasil dimuat: " + error.message +
+      ". Periksa internet lalu tekan Perbarui Jadwal.";
+
+    status.className = "status error";
   }
- }
- update();
- iqamahInterval=setInterval(update,250);
 }
 
-function showIqamah(prayerName,id){
- if(id!==sequenceId)return;
- const countdown=document.getElementById("iqamahCountdown");
- const note=document.getElementById("iqamahNote");
- const name=document.getElementById("iqamahPrayerName");
+function renderPrayerTimes() {
+  if (!schedule) return;
 
- name.textContent="IQAMAH";
- countdown.textContent="الله أكبر";
- note.textContent=`Waktu iqamah salat ${prayerName} telah tiba`;
+  prayerList.forEach(prayer => {
+    document.getElementById("time-" + prayer.key).textContent =
+      schedule[prayer.apiKey] || "--:--";
+  });
 
- document.getElementById("sequenceStatus").textContent=
-  `Hitung mundur selesai. Tampilan iqamah ${prayerName}.`;
+  document.getElementById("imsak").textContent =
+    schedule.imsak || "--:--";
 
- let remaining=30;
- iqamahInterval=setInterval(()=>{
-  if(id!==sequenceId)return;
-  remaining--;
-  if(remaining<=0){
-   clearIqamahTimers();
-   document.getElementById("iqamahScreen").style.display="none";
-   document.getElementById("sequenceStatus").textContent=
-    "Proses azan dan iqamah selesai. Dashboard aktif kembali.";
+  document.getElementById("sunrise").textContent =
+    schedule.terbit || schedule.syuruq || "--:--";
+}
+
+/* =====================================
+   KALENDER HIJRIAH
+===================================== */
+
+async function loadHijriDate() {
+  const date = getLocalDateString();
+  const element = document.getElementById("hijri");
+
+  try {
+    const response = await fetch(
+      `${API}/cal/hijr/${date}?tz=${TIMEZONE}&adj=${settings.hijriAdjust}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Kalender tidak tersedia.");
+    }
+
+    const json = await response.json();
+    const data = json.data || json;
+
+    element.textContent =
+      data.date || data.hijri || data.hijri_date ||
+      "Tanggal Hijriah tidak tersedia";
+
+  } catch (error) {
+    element.textContent = "Kalender Hijriah tidak tersedia";
   }
- },1000);
 }
 
-/* PEMUTAR AZAN DAN LANJUT IQAMAH */
-async function playPrayerAudio(prayerName,onFinished){
- audio.volume=settings.volume/100;
- let finished=false;
+/* =====================================
+   HITUNG MUNDUR SALAT BERIKUTNYA
+===================================== */
 
- const finish=()=>{
-  if(finished)return;
-  finished=true;
-  audio.onended=null;
-  audio.onerror=null;
-  if(onFinished)onFinished();
- };
+function parsePrayerDate(time,dateString) {
+  if (!time || !/^\d{1,2}:\d{2}/.test(time)) return null;
 
- if(audioBlob&&audioReady){
-  try{
-   audio.pause();
-   audio.currentTime=0;
+  const [hour,minute] = time.split(":").map(Number);
+  const [year,month,day] = dateString.split("-").map(Number);
 
-   audio.onended=finish;
-   audio.onerror=async()=>{
-    if(finished)return;
-    audio.onended=null;
-    audio.onerror=null;
-    await speakReminder(prayerName);
-    finish();
-   };
+  return new Date(year,month-1,day,hour,minute,0,0);
+}
 
-   await audio.play();
+function getPrayerDate(prayer,dateString) {
+  return parsePrayerDate(schedule[prayer.apiKey],dateString);
+}
 
-   document.getElementById("audioStatus").textContent=
-    "Azan "+prayerName+" sedang diputar dari MP3.";
-   document.getElementById("audioStatus").className="status ok";
-   return true;
-  }catch(error){
-   console.error("MP3 gagal diputar:",error);
+function updatePrayerDisplay() {
+  if (!schedule) return;
+
+  const now = new Date();
+  const dateString = getLocalDateString();
+  const upcoming = [];
+
+  prayerList.forEach(prayer => {
+    let date = getPrayerDate(prayer,dateString);
+
+    if (date) {
+      if (date.getTime() < now.getTime() - 60000) {
+        date = new Date(date.getTime() + 86400000);
+      }
+
+      upcoming.push({prayer,date});
+    }
+  });
+
+  upcoming.sort((a,b) => a.date - b.date);
+
+  const next = upcoming[0];
+  if (!next) return;
+
+  document.getElementById("nextPrayer").textContent = next.prayer.name;
+  document.getElementById("nextPrayerTime").textContent =
+    "Waktu salat: " + schedule[next.prayer.apiKey];
+
+  const diff = Math.max(0,next.date-now);
+  const h = Math.floor(diff/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+
+  document.getElementById("countdown").textContent =
+    [h,m,s].map(value => String(value).padStart(2,"0")).join(":");
+
+  document.querySelectorAll(".prayer-card").forEach(card => {
+    card.classList.remove("active");
+  });
+
+  const index = prayerList.findIndex(p => p.key === next.prayer.key);
+
+  if (index >= 0) {
+    document.querySelectorAll(".prayer-card")[index].classList.add("active");
   }
- }
-
- document.getElementById("audioStatus").textContent=
-  "Memutar pengingat suara "+prayerName+".";
- await speakReminder(prayerName);
- finish();
- return true;
 }
 
-/* AKTIFKAN AUDIO */
-async function enableAudio(){
- const status=document.getElementById("audioStatus");
- audioReady=true;
- try{
-  if(audioBlob){
-   audio.volume=settings.volume/100;
-   audio.onended=null;
-   audio.onerror=null;
-   audio.currentTime=0;
-   await audio.play();
-   status.textContent="Tes MP3 sedang diputar. Audio berhasil diaktifkan.";
-   status.className="status ok";
-   audio.onended=()=>{
-    status.textContent="Audio siap. Alarm otomatis aktif selama halaman terbuka.";
-   };
-  }else{
-   await speakReminder("Subuh");
-   status.textContent="Tes TTS berhasil. Unggah MP3 untuk menggunakan azan lengkap.";
-   status.className="status ok";
+/* =====================================
+   TTS CADANGAN
+===================================== */
+
+function speakReminder(prayerName) {
+  return new Promise(resolve => {
+    if (!("speechSynthesis" in window)) {
+      resolve(false);
+      return;
+    }
+
+    try {
+      speechSynthesis.cancel();
+
+      const message =
+        `Waktu Sholat ${prayerName} telah tiba. ` +
+        "Segera tinggalkan pekerjaan dan menuju masjid atau musholla.";
+
+      const utterance = new SpeechSynthesisUtterance(message);
+
+      utterance.lang = "id-ID";
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      utterance.volume = settings.volume / 100;
+
+      utterance.onend = () => resolve(true);
+      utterance.onerror = () => resolve(false);
+
+      speechSynthesis.speak(utterance);
+
+      setTimeout(() => resolve(true),30000);
+
+    } catch (error) {
+      console.error(error);
+      resolve(false);
+    }
+  });
+}
+
+/* =====================================
+   AKTIVASI AUDIO DARI TOMBOL
+===================================== */
+
+async function enableAudio() {
+  const status = document.getElementById("audioStatus");
+
+  try {
+    audio.pause();
+    audio.src = ADHAN_URL;
+    audio.load();
+
+    audio.volume = settings.volume / 100;
+    audio.muted = false;
+    audio.currentTime = 0;
+
+    // Play dipanggil langsung dari interaksi tombol pengguna.
+    await audio.play();
+
+    audioReady = true;
+
+    status.textContent =
+      "Audio berhasil diaktifkan. Tes azan sedang diputar dari server.";
+    status.className = "status ok";
+
+    requestWakeLock();
+
+    audio.onended = () => {
+      status.textContent =
+        "Audio siap. Alarm otomatis aktif selama aplikasi tetap terbuka.";
+    };
+
+  } catch (error) {
+    console.error("Aktivasi audio:",error);
+
+    audioReady = false;
+
+    status.textContent =
+      "Audio belum aktif. Pastikan file MP3 tersedia dan tekan tombol sekali lagi.";
+    status.className = "status error";
+
+    alert(
+      "Audio belum bisa diputar. Periksa koneksi internet, volume perangkat, " +
+      "dan keberadaan file MP3 di server."
+    );
   }
- }catch(error){
-  console.error(error);
-  audioReady=false;
-  status.textContent="Audio belum dapat diputar. Coba tekan Aktifkan Audio lagi.";
-  status.className="status error";
- }
 }
 
-/* NOTIFIKASI */
-async function showNotification(title,message){
- if(!("Notification"in window))return;
- try{
-  if(Notification.permission==="default")await Notification.requestPermission();
-  if(Notification.permission==="granted")new Notification(title,{body:message});
- }catch(e){console.log(e);}
-}
-
-/* ALUR AZAN */
-async function triggerAdhan(prayer,isSimulation=false){
- const dateKey=getLocalDateString();
- const alarmKey=`${dateKey}-${prayer.key}`;
-
- if(!isSimulation){
-  if(lastAlarmKey===alarmKey)return;
-  lastAlarmKey=alarmKey;
- }
-
- // Setiap alarm baru membatalkan rangkaian lama.
- sequenceId++;
- const thisSequence=sequenceId;
- activeSequence={prayer:prayer.name,id:thisSequence};
-
- clearIqamahTimers();
- document.getElementById("iqamahScreen").style.display="none";
-
- const title=isSimulation?
-  `SIMULASI ALARM ${prayer.name.toUpperCase()}`:
-  `WAKTU SALAT ${prayer.name.toUpperCase()}`;
-
- const message=isSimulation?
-  `Ini simulasi alarm salat ${prayer.name}.`:
-  `Waktu salat ${prayer.name} telah tiba.`;
-
- document.getElementById("audioStatus").textContent=title;
- document.getElementById("audioStatus").className="status ok";
- document.getElementById("sequenceStatus").textContent=
-  `Azan ${prayer.name} sedang diputar. Hitung mundur iqamah dimulai setelah azan selesai.`;
-
- showNotification(title,message);
-
- await playPrayerAudio(prayer.name,()=>{
-  beginIqamah(prayer.name,thisSequence);
- });
-}
-
-/* ALARM OTOMATIS */
-function checkRealPrayerAlarm(){
- if(!schedule)return;
- const now=new Date();
- const dateString=getLocalDateString();
-
- prayerList.forEach(prayer=>{
-  const prayerDate=getPrayerDate(prayer,dateString);
-  if(!prayerDate)return;
-  const difference=Math.abs(now-prayerDate);
-  if(difference<=30000)triggerAdhan(prayer,false);
- });
-}
-
-/* TES AUDIO 10 DETIK */
-function testAutomaticAdhan(){
- if(!audioReady){
-  alert("Tekan Aktifkan Audio terlebih dahulu.");
-  return;
- }
- setTimeout(()=>playPrayerAudio("Tes"),10000);
- document.getElementById("audioStatus").textContent=
-  "Tes audio akan diputar dalam 10 detik.";
- document.getElementById("audioStatus").className="status ok";
-}
-
-/* SIMULASI SUBUH 10 DETIK */
-function simulateSubuh(){
- if(!audioReady){
-  alert("Aktifkan audio terlebih dahulu.");
-  return;
- }
- if(simulationRunning){
-  alert("Simulasi sedang berjalan. Batalkan dulu untuk mengulang.");
-  return;
- }
-
- simulationRunning=true;
- let remaining=10;
-
- const countdown=document.getElementById("simulationCountdown");
- const status=document.getElementById("simulationStatus");
-
- countdown.textContent="10 DETIK";
- status.textContent="Simulasi alarm Subuh akan berbunyi dalam 10 detik...";
- status.className="status";
-
- simulationInterval=setInterval(()=>{
-  remaining--;
-  if(remaining>0){
-   countdown.textContent=remaining+" DETIK";
-   status.textContent="Persiapan simulasi alarm Subuh...";
-  }else{
-   clearInterval(simulationInterval);
-   simulationInterval=null;
-  }
- },1000);
-
- simulationTimer=setTimeout(async()=>{
-  simulationTimer=null;
-  simulationRunning=false;
-  countdown.textContent="WAKTU SUBUH";
-  status.textContent="Simulasi azan Subuh dimulai.";
-  status.className="status ok";
-
-  const subuh=prayerList.find(p=>p.key==="subuh");
-  await triggerAdhan(subuh,true);
-
-  countdown.textContent="SELESAI";
-  status.textContent=
-   "Simulasi azan dan iqamah berjalan. Jadwal alarm asli tidak berubah.";
- },10000);
-}
-
-function cancelSimulation(){
- if(simulationTimer){clearTimeout(simulationTimer);simulationTimer=null;}
- if(simulationInterval){clearInterval(simulationInterval);simulationInterval=null;}
- simulationRunning=false;
-
- // Hentikan rangkaian simulasi jika sedang berjalan.
- if(activeSequence){
-  sequenceId++;
-  clearIqamahTimers();
+function stopAudio() {
   audio.pause();
-  audio.currentTime=0;
-  if("speechSynthesis"in window)speechSynthesis.cancel();
-  activeSequence=null;
-  document.getElementById("iqamahScreen").style.display="none";
- }
+  audio.currentTime = 0;
 
- document.getElementById("simulationCountdown").textContent="DIBATALKAN";
- document.getElementById("simulationStatus").textContent=
-  "Simulasi dibatalkan. Alarm jadwal sebenarnya tidak diubah.";
- document.getElementById("simulationStatus").className="status";
- document.getElementById("sequenceStatus").textContent=
-  "Simulasi dihentikan.";
-}
-
-/* FULLSCREEN */
-function toggleFullscreen(){
- if(!document.fullscreenElement){
-  document.documentElement.requestFullscreen?.();
- }else{
-  document.exitFullscreen?.();
- }
-}
-
-/* INIT */
-async function init(){
- loadSettings();
- updateClock();
- lastDateString=getLocalDateString();
-
- try{
-  await openAudioDB();
-  const savedAudio=await getAudioFromDB();
-  if(savedAudio)setAudioSource(savedAudio);
- }catch(error){
-  console.error("Database audio:",error);
- }
-
- await loadSchedule();
-
- setInterval(updateClock,1000);
-
- setInterval(()=>{
-  updatePrayerDisplay();
-  checkRealPrayerAlarm();
- },1000);
-
- setInterval(()=>{
-  const currentDate=getLocalDateString();
-  if(currentDate!==lastDateString){
-   lastDateString=currentDate;
-   loadSchedule();
+  if ("speechSynthesis" in window) {
+    speechSynthesis.cancel();
   }
- },30000);
+
+  document.getElementById("audioStatus").textContent =
+    "Pemutaran audio dihentikan.";
+}
+
+/* =====================================
+   PEMUTAR MP3 PERMANEN
+===================================== */
+
+async function playPrayerAudio(prayerName,onFinished) {
+  audio.volume = settings.volume / 100;
+
+  let finished = false;
+
+  const finish = () => {
+    if (finished) return;
+
+    finished = true;
+    audio.onended = null;
+    audio.onerror = null;
+
+    if (onFinished) onFinished();
+  };
+
+  if (audioReady) {
+    try {
+      audio.pause();
+      audio.src = ADHAN_URL;
+      audio.load();
+      audio.volume = settings.volume / 100;
+      audio.muted = false;
+
+      audio.onended = finish;
+
+      audio.onerror = async () => {
+        if (finished) return;
+
+        audio.onended = null;
+        audio.onerror = null;
+
+        await speakReminder(prayerName);
+        finish();
+      };
+
+      await audio.play();
+
+      document.getElementById("audioStatus").textContent =
+        "Azan " + prayerName + " sedang diputar dari server.";
+
+      document.getElementById("audioStatus").className = "status ok";
+
+      return true;
+
+    } catch (error) {
+      console.error("MP3 gagal diputar:",error);
+    }
+  }
+
+  document.getElementById("audioStatus").textContent =
+    "MP3 tidak dapat diputar. Mencoba pengingat suara.";
+
+  await speakReminder(prayerName);
+  finish();
+
+  return true;
+}
+
+/* =====================================
+   WAKE LOCK
+===================================== */
+
+async function requestWakeLock() {
+  if (!("wakeLock" in navigator)) {
+    document.getElementById("screenStatus").textContent =
+      "Browser tidak mendukung Wake Lock. Atur layar perangkat agar tidak mati.";
+    return;
+  }
+
+  try {
+    wakeLock = await navigator.wakeLock.request("screen");
+
+    document.getElementById("screenStatus").textContent =
+      "Wake Lock aktif: aplikasi meminta layar tetap menyala.";
+
+    wakeLock.addEventListener("release",() => {
+      wakeLock = null;
+
+      document.getElementById("screenStatus").textContent =
+        "Wake Lock dilepas oleh browser atau sistem.";
+    });
+
+  } catch (error) {
+    console.log("Wake Lock:",error);
+  }
+}
+
+document.addEventListener("visibilitychange",() => {
+  if (document.visibilityState === "visible" && audioReady) {
+    requestWakeLock();
+  }
+});
+
+/* =====================================
+   FULLSCREEN
+===================================== */
+
+async function toggleFullscreen() {
+  const status = document.getElementById("screenStatus");
+
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+      status.textContent = "Mode layar penuh dinonaktifkan.";
+      return;
+    }
+
+    if (document.documentElement.requestFullscreen) {
+      await document.documentElement.requestFullscreen();
+
+      status.textContent = "Mode layar penuh aktif.";
+
+      requestWakeLock();
+
+    } else {
+      status.textContent =
+        "Fullscreen tidak didukung browser ini. Gunakan menu browser atau mode layar utama.";
+
+      alert(
+        "Browser tidak menyediakan Fullscreen API. " +
+        "Coba menu browser atau tambahkan aplikasi ke layar utama."
+      );
+    }
+
+  } catch (error) {
+    console.error("Fullscreen:",error);
+
+    status.textContent =
+      "Fullscreen ditolak browser. Coba tekan tombol lagi atau gunakan menu browser.";
+  }
+}
+
+/* =====================================
+   NOTIFIKASI
+===================================== */
+
+async function showNotification(title,message) {
+  if (!("Notification" in window)) return;
+
+  try {
+    if (Notification.permission === "default") {
+      await Notification.requestPermission();
+    }
+
+    if (Notification.permission === "granted") {
+      new Notification(title,{body:message});
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/* =====================================
+   IQAMAH
+===================================== */
+
+function clearIqamahTimers() {
+  if (iqamahInterval) {
+    clearInterval(iqamahInterval);
+    iqamahInterval = null;
+  }
+}
+
+function beginIqamah(prayerName,id) {
+  if (id !== sequenceId) return;
+
+  clearIqamahTimers();
+
+  const durationMinutes = normalizeIqamah(settings.iqamah);
+  const durationSeconds = durationMinutes * 60;
+  const endTime = Date.now() + durationSeconds * 1000;
+
+  const screen = document.getElementById("iqamahScreen");
+  const countdown = document.getElementById("iqamahCountdown");
+  const name = document.getElementById("iqamahPrayerName");
+  const note = document.getElementById("iqamahNote");
+
+  name.textContent = "IQAMAH " + prayerName.toUpperCase();
+  note.textContent = "Persiapan iqamah • " + durationMinutes + " menit";
+
+  screen.style.display = "flex";
+
+  document.getElementById("sequenceStatus").textContent =
+    "Azan selesai. Hitung mundur iqamah " + prayerName +
+    " dimulai (" + durationMinutes + " menit).";
+
+  function update() {
+    if (id !== sequenceId) return;
+
+    const remaining = Math.max(
+      0,
+      Math.ceil((endTime-Date.now())/1000)
+    );
+
+    const mm = Math.floor(remaining/60);
+    const ss = remaining%60;
+
+    countdown.textContent =
+      String(mm).padStart(2,"0") + ":" +
+      String(ss).padStart(2,"0");
+
+    if (remaining <= 0) {
+      clearIqamahTimers();
+      showIqamah(prayerName,id);
+    }
+  }
+
+  update();
+  iqamahInterval = setInterval(update,250);
+}
+
+function showIqamah(prayerName,id) {
+  if (id !== sequenceId) return;
+
+  const countdown = document.getElementById("iqamahCountdown");
+  const note = document.getElementById("iqamahNote");
+  const name = document.getElementById("iqamahPrayerName");
+
+  name.textContent = "IQAMAH";
+  countdown.textContent = "الله أكبر";
+  note.textContent = "Waktu iqamah salat " + prayerName + " telah tiba.";
+
+  document.getElementById("sequenceStatus").textContent =
+    "Hitung mundur selesai. Tampilan iqamah " + prayerName + ".";
+
+  let remaining = 30;
+
+  iqamahInterval = setInterval(() => {
+    if (id !== sequenceId) return;
+
+    remaining--;
+
+    if (remaining <= 0) {
+      clearIqamahTimers();
+
+      document.getElementById("iqamahScreen").style.display = "none";
+
+      document.getElementById("sequenceStatus").textContent =
+        "Proses azan dan iqamah selesai. Dashboard aktif kembali.";
+
+      activeSequence = null;
+    }
+  },1000);
+}
+
+/* =====================================
+   ALUR AZAN DAN IQAMAH
+===================================== */
+
+async function triggerAdhan(prayer,isSimulation=false) {
+  const dateKey = getLocalDateString();
+  const alarmKey = dateKey + "-" + prayer.key;
+
+  if (!isSimulation) {
+    if (lastAlarmKey === alarmKey) return;
+    lastAlarmKey = alarmKey;
+  }
+
+  sequenceId++;
+  const thisSequence = sequenceId;
+
+  activeSequence = {
+    prayer:prayer.name,
+    id:thisSequence
+  };
+
+  clearIqamahTimers();
+
+  document.getElementById("iqamahScreen").style.display = "none";
+
+  const title = isSimulation
+    ? "SIMULASI ALARM " + prayer.name.toUpperCase()
+    : "WAKTU SALAT " + prayer.name.toUpperCase();
+
+  document.getElementById("audioStatus").textContent = title;
+  document.getElementById("audioStatus").className = "status ok";
+
+  document.getElementById("sequenceStatus").textContent =
+    "Azan " + prayer.name +
+    " sedang diputar. Hitung mundur iqamah dimulai setelah azan selesai.";
+
+  showNotification(
+    title,
+    "Waktu salat " + prayer.name + " telah tiba."
+  );
+
+  await playPrayerAudio(prayer.name,() => {
+    beginIqamah(prayer.name,thisSequence);
+  });
+}
+
+/* =====================================
+   ALARM OTOMATIS
+===================================== */
+
+function checkRealPrayerAlarm() {
+  if (!schedule || !audioReady) return;
+
+  const now = new Date();
+  const dateString = getLocalDateString();
+
+  prayerList.forEach(prayer => {
+    const prayerDate = getPrayerDate(prayer,dateString);
+
+    if (!prayerDate) return;
+
+    const difference = Math.abs(now-prayerDate);
+
+    if (difference <= 30000) {
+      triggerAdhan(prayer,false);
+    }
+  });
+}
+
+/* =====================================
+   SIMULASI SUBUH 10 DETIK
+===================================== */
+
+function simulateSubuh() {
+  if (!audioReady) {
+    alert("Aktifkan audio terlebih dahulu.");
+    return;
+  }
+
+  if (simulationRunning) {
+    alert("Simulasi sedang berjalan. Batalkan dahulu jika ingin mengulang.");
+    return;
+  }
+
+  simulationRunning = true;
+
+  let remaining = 10;
+
+  const countdown = document.getElementById("simulationCountdown");
+  const status = document.getElementById("simulationStatus");
+
+  countdown.textContent = "10 DETIK";
+  status.textContent = "Simulasi alarm Subuh akan berbunyi dalam 10 detik.";
+  status.className = "status";
+
+  simulationInterval = setInterval(() => {
+    remaining--;
+
+    if (remaining > 0) {
+      countdown.textContent = remaining + " DETIK";
+    } else {
+      clearInterval(simulationInterval);
+      simulationInterval = null;
+    }
+  },1000);
+
+  simulationTimer = setTimeout(async () => {
+    simulationTimer = null;
+    simulationRunning = false;
+
+    countdown.textContent = "WAKTU SUBUH";
+    status.textContent = "Simulasi azan Subuh dimulai.";
+    status.className = "status ok";
+
+    const subuh = prayerList.find(p => p.key === "subuh");
+
+    await triggerAdhan(subuh,true);
+
+    countdown.textContent = "SELESAI";
+    status.textContent =
+      "Simulasi azan dan iqamah berjalan. Jadwal alarm asli tidak berubah.";
+
+  },10000);
+}
+
+function cancelSimulation() {
+  if (simulationTimer) {
+    clearTimeout(simulationTimer);
+    simulationTimer = null;
+  }
+
+  if (simulationInterval) {
+    clearInterval(simulationInterval);
+    simulationInterval = null;
+  }
+
+  simulationRunning = false;
+
+  if (activeSequence) {
+    sequenceId++;
+    clearIqamahTimers();
+
+    audio.pause();
+    audio.currentTime = 0;
+
+    if ("speechSynthesis" in window) {
+      speechSynthesis.cancel();
+    }
+
+    activeSequence = null;
+
+    document.getElementById("iqamahScreen").style.display = "none";
+  }
+
+  document.getElementById("simulationCountdown").textContent = "DIBATALKAN";
+  document.getElementById("simulationStatus").textContent =
+    "Simulasi dibatalkan. Alarm jadwal sebenarnya tidak diubah.";
+  document.getElementById("simulationStatus").className = "status";
+
+  document.getElementById("sequenceStatus").textContent =
+    "Simulasi dihentikan.";
+}
+
+/* =====================================
+   INISIALISASI
+===================================== */
+
+async function init() {
+  loadSettings();
+  updateClock();
+
+  lastDateString = getLocalDateString();
+
+  checkAudioFile();
+  await loadSchedule();
+
+  setInterval(updateClock,1000);
+
+  setInterval(() => {
+    updatePrayerDisplay();
+    checkRealPrayerAlarm();
+  },1000);
+
+  setInterval(() => {
+    const currentDate = getLocalDateString();
+
+    if (currentDate !== lastDateString) {
+      lastDateString = currentDate;
+      loadSchedule();
+    }
+  },30000);
 }
 
 init();
